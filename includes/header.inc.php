@@ -1,23 +1,6 @@
-<!-- 
-  Bardia Parmoun
-  101143006
--->
 
 <!DOCTYPE html>
 <html lang=en>
-<head>
-<meta charset=utf-8>
-    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <script src="css/semantic.js"></script>
-	<script src="js/misc.js"></script>
-    
-    <link href="css/semantic.css" rel="stylesheet" >
-    <link href="css/icon.css" rel="stylesheet" >
-    <link href="css/styles.css" rel="stylesheet">   
-</head>
 <body >
 <header>
     <div class="ui attached stackable grey inverted  menu">
@@ -34,8 +17,8 @@
                     <a class="item"><i class="settings icon"></i> Account Settings</a>
                   </div>
                 </div>
-                <a class=" item" href="view-favourites.php">
-                  <i class="heartbeat icon"></i> Favorites &nbsp;
+                <a class=" item" href="view-favorites.php">
+                  <i class="heartbeat icon"></i> Favorites
                   <?php
                       session_start();
 
@@ -48,6 +31,7 @@
 
                       echo '<i class = "inverted bordered red icon">'.$favCount.'</i>';
                   ?>
+                  
                 </a>        
                 <a class=" item">
                   <i class="shop icon"></i> Cart
@@ -61,7 +45,7 @@
             <h2 class="header item">
               <img src="images/logo5.png" class="ui small image" >
             </h2>  
-            <a class="item">
+            <a class="item" href="index.php">
               <i class="home icon"></i> Home
             </a>       
             <a class="item">
@@ -75,8 +59,8 @@
               Browse
                 <i class="dropdown icon"></i>
               <div class="menu">
-                <a class="item"><i class="users icon"></i> Artists</a>
-                <a class="item"><i class="theme icon"></i> Genres</a>
+                <a class="item" href="browse-artists.php"><i class="users icon"></i> Artists</a>
+                <a class="item" href="browse-genres.php"><i class="theme icon"></i> Genres</a>
                 <a class="item" href="browse-paintings.php"><i class="paint brush icon"></i> Paintings</a>
                 <a class="item"><i class="cube icon"></i> Subjects</a>
               </div>
@@ -87,6 +71,8 @@
                   <i class="search icon"></i>
                 </div>
             </div>      
+
         </div>
-    </div>       
+    </div>   
+    
 </header> 

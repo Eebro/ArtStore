@@ -1,42 +1,60 @@
 <?php
-  /**
-   * Bardia Parmoun
-   * 101143006
-   */
-  
-  require_once('includes/header.inc.php');
-  require_once('includes/art-config.inc.php');
-  require_once('includes/database.inc.php');
-  require_once('includes/classes.inc.php');
-?>
 
-<main >
-    <?php 
 
-      function drawReviewStars($rating, $fullStar, $emptyStar = ""){
-        echo '<a class="like">';
+  include 'includes/include.inc.php';
+  include 'includes/header.inc.php';
+  include 'includes/database.inc.php';
 
-        for ($i = 0; $i < $rating; $i++){
-          echo $fullStar;
-        }
+  define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
+  define('DBUSER', 'testuser');
+  define('DBPASS', 'mypassword');
 
-        for ($i = $rating; $i < 5; $i++){
-          echo $emptyStar;
-        }
-        echo '</a>';
-      }
 
-      if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        if (isset($_GET["id"])){
-          $id = $_GET["id"];
-        } else {
-          $id = 441;
-        }
+  function drawReviewStars($rating, $fullStar, $emptyStar = ""){
+    echo '<a class="like">';
 
-        $painting = getPaintingById($id);
-      }
+    for ($i = 0; $i < $rating; $i++){
+      echo $fullStar;
+    }
+
+    for ($i = $rating; $i < 5; $i++){
+      echo $emptyStar;
+    }
+    echo '</a>';
+  }
+
+  if ($_SERVER["REQUEST_METHOD"] == "GET"){
+    if (isset($_GET["id"])){
+      $id = $_GET["id"];
+    } else {
+      $id = 441;
+    }
+
+    $painting = getPaintingById($id);
+  }
     ?>
+
+
+
+    <main >
+<!DOCTYPE html>
+<html lang=en>   
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+    <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="css/semantic.js"></script>
+    <script src="js/misc.js"></script>
+    
+    <link href="css/semantic.css" rel="stylesheet" >
+    <link href="css/icon.css" rel="stylesheet" >
+    <link href="css/styles.css" rel="stylesheet">
+    
+</head>
+
     <!-- Main section about painting -->
     <section class="ui segment grey100">
         <div class="ui doubling stackable grid container">
