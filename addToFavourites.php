@@ -1,35 +1,36 @@
 <?php
-  /**
-   * Bardia Parmoun
-   * 101143006
-   */
 
-  require_once('includes/header.inc.php');
-  require_once('includes/art-config.inc.php');
-  require_once('includes/database.inc.php');
-  require_once('includes/classes.inc.php');
 
-  session_start();
+  include 'includes/database.inc.php';
+ include 'includes/include.inc.php';
+  include 'includes/header.inc.php';
 
-  if ($_SERVER["REQUEST_METHOD"] == "GET"){
-    if (isset($_GET["id"])){
-      $id = $_GET["id"];
-    } else {
-      $id = 441;
-    }
+ 
+  define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
+  define('DBUSER', 'testuser');
+  define('DBPASS', 'mypassword');
 
-    if (isset($_SESSION['Favourites'])){
-        $favourite_list = $_SESSION['Favourites'];
-    } else {
-        $favourite_list = Array();
-    }
 
-    $painting = getPaintingById($id);
+session_start();
+if ( ! empty($_GET['id']) && isset($_GET['id'])) {
 
-    $favourite_list[$id] = Array($id, $painting->imageFileName, $painting->title);
-
-    $_SESSION['Favourites'] = $favourite_list;
-
-    header("Location: view-favourites.php");
+  if (! isset($_SESSION['favorites'])) {
+    
+      $_SESSION['favorites'] = array();
   }
+ 
+  $lstFav = $_SESSION['Favourites'];
+
+
+  $img = getPaintingById($_GET["id"]);
+
+  $lstFav[$_GET["id"]] = array($_GET["id"], $img->imageFileName, $img->title);
+
+  $_SESSION['Favourites'] = $lstFav;
+
+
+}
+header("Location: view-favourites.php");
+
+
 ?>
