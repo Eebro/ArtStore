@@ -1,61 +1,56 @@
 <?php
+  /**
+   * Bardia Parmoun
+   * 101143006
+   */
+  
+  require_once('includes/header.inc.php');
+  require_once('includes/art-config.inc.php');
+  require_once('includes/database.inc.php');
+  require_once('includes/classes.inc.php');
+?>
 
+<main >
+    <?php 
 
-  include 'includes/include.inc.php';
-  include 'includes/header.inc.php';
-  include 'includes/database.inc.php';
+      function drawReviewStars($rating, $fullStar, $emptyStar = ""){
+        echo '<a class="like">';
 
-  define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
-  define('DBUSER', 'testuser');
-  define('DBPASS', 'mypassword');
+        for ($i = 0; $i < $rating; $i++){
+          echo $fullStar;
+        }
 
+        for ($i = $rating; $i < 5; $i++){
+          echo $emptyStar;
+        }
+        echo '</a>';
+      }
 
-  function drawReviewStars($rating, $fullStar, $emptyStar = ""){
-    echo '<a class="like">';
+      if ($_SERVER["REQUEST_METHOD"] == "GET"){
+        if (isset($_GET["id"])){
+          $id = $_GET["id"];
+        } else {
+          $id = 441;
+        }
 
-    for ($i = 0; $i < $rating; $i++){
-      echo $fullStar;
-    }
-
-    for ($i = $rating; $i < 5; $i++){
-      echo $emptyStar;
-    }
-    echo '</a>';
-  }
-
-  if ($_SERVER["REQUEST_METHOD"] == "GET"){
-    if (isset($_GET["id"])){
-      $id = $_GET["id"];
-    } else {
-      $id = 441;
-    }
-
-    $painting = getPaintingById($id);
-  }
+        $painting = getPaintingById($id);
+      }
     ?>
-
-
-
-    <main >
-<!DOCTYPE html>
-<html lang=en>   
-<head>
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-
+    
+    <!-- Main section about painting -->
+    <head>
+<meta charset=utf-8>
     <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="css/semantic.js"></script>
-    <script src="js/misc.js"></script>
+	<script src="js/misc.js"></script>
     
     <link href="css/semantic.css" rel="stylesheet" >
     <link href="css/icon.css" rel="stylesheet" >
-    <link href="css/styles.css" rel="stylesheet">
-    
+    <link href="css/styles.css" rel="stylesheet">   
 </head>
-
-    <!-- Main section about painting -->
     <section class="ui segment grey100">
         <div class="ui doubling stackable grid container">
               <div class="nine wide column">
@@ -213,73 +208,9 @@
                   </ul>
                 </div>  
                 
-                <!-- Cart and Price -->
-                <div class="ui segment">
-                    <div class="ui form">
-                        <div class="ui tiny statistic">
-                          <div class="value">
-                            <?php 
-                              echo '$'.$painting->MSRP;
-                            ?>
-                          </div>
-                        </div>
-                        <div class="four fields">
-                            <div class="three wide field">
-                                <label>Quantity</label>
-                                <input type="number">
-                            </div>                               
-                            <div class="four wide field">
-                                <label>Frame</label>
-                                <select id="frame" class="ui search dropdown">
-                                    <?php 
-                                      $frames = getFrameTypes();
-
-                                      foreach($frames as $frame){
-                                        echo '<option>'.$frame->title.'[$'.$frame->price.']</option>';
-                                      }
-                                    ?>
-                                </select>
-                            </div>  
-                            <div class="four wide field">
-                                <label>Glass</label>
-                                <select id="glass" class="ui search dropdown">
-                                    <?php 
-                                        $glasses = getGlassTypes();
-
-                                        foreach($glasses as $glass){
-                                          echo '<option>'.$glass->title.'[$'.$glass->price.']</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>  
-                            <div class="four wide field">
-                                <label>Matt</label>
-                                <select id="matt" class="ui search dropdown">
-                                    <?php 
-                                        $matts = getMattTypes();
-
-                                        foreach($matts as $matt){
-                                          echo '<option>'.$matt->title.'['.$matt->color.']</option>';
-                                        }
-                                    ?>
-                                </select>
-                            </div>           
-                        </div>                     
-                    </div>
-
-                    <div class="ui divider"></div>
-
-                    <button class="ui labeled icon orange button">
-                      <i class="add to cart icon"></i>
-                      Add to Cart
-                    </button>
-                      <?php
-                        echo '<a class="ui icon button" href="addToFavourites.php?id='.$id.'">
-                          <i class="heart icon"></i>
-                          Add to Favourites
-                        </a>';    
-                      ?>   
-                </div>     <!-- END Cart -->                      
+                <!-- Cart-->
+                <?php include 'includes/cart.inc.php'; ?>
+                            
                           
             </div>	<!-- END RIGHT data Column --> 
         </div>		<!-- END Grid --> 
@@ -367,29 +298,13 @@
             }
           ?>                          
 				</div>                                
-            </div>   <!-- END Reviews Tab -->          
+            </div>       
         
         </div>        
-    </section> <!-- END Description, On the Web, Reviews Tabs --> 
+    </section> 
     
-    <!-- Related Images ... will implement this in assignment 2 -->    
-    <section class="ui container">
-    <h3 class="ui dividing header">Related Works</h3>     
-    <?php   
-      $similarPaintings = fetchPaintings("", $painting->galleryName, "");
-
-      foreach($similarPaintings as $similar_painting){
-        echo '
-            <li class="item">
-              <a class="ui small image" href="single-painting.php?id='.$similar_painting->paintingID.'"><img src="images/art/works/square-small/'.$similar_painting->imageFileName.'.jpg"></a>
-              <div class="content">
-                <a class="header" href="single-painting.php?id='.$similar_painting->paintingID.'">'.$similar_painting->title.'</a>         
-              </div>      
-            </li>';
-      }
-
-    ?>
-	</section>  
+    <!-- Related Images -->    
+    <?php include 'includes/image-list.inc.php'; ?>    
 	
 </main>    
     
