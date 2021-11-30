@@ -1,41 +1,41 @@
-<?php
-  /**
-   * Bardia Parmoun
-   * 101143006
-   */
 
-  require_once('includes/header.inc.php');
-  require_once('includes/art-config.inc.php');
-  require_once('includes/database.inc.php');
-  require_once('includes/classes.inc.php');
+<!DOCTYPE html>
+<html lang=en>
+
+<?php
+include 'includes/header.inc.php';
+define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
+define('DBUSER', 'testuser');
+define('DBPASS', 'mypassword');
 ?>
 
-<section class="eleven wide column">
-  <h1 class="ui header">Paintings</h1>
-  <ul class="ui divided items" id="paintingsList">
+<head>
+  <br>
+  <h1 class="ui header">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Favourited Paintings</h1><br>
+  <ul class="ui divided items" id="paintingsList"> 
 
   <?php 
-    
-    if (isset($_SESSION['Favourites'])){
-        $favourte_list = $_SESSION['Favourites'];
 
-        foreach($favourte_list as $painting){
-            echo '
-                <li class="item">
-                <a class="ui small image" href="single-painting.php?id='.$painting[0].'"><img src="images/art/works/square-medium/'.$painting[1].'.jpg"></a>
-                <div class="content">
-                <a class="header" href="single-painting.php?id='.$painting[0].'">'.$painting[2].'</a>     
-                <div class="extra">
-                    <a class="ui icon orange button" href="cart.php?id='.$painting[0].'"><i class="add to cart icon"></i></a>
-                    <a class="ui icon button" href="remove-favourites.php?id='.$painting[0].'">
-                        Remove From Favourites
-                    </a>
-                </div>        
-                </div>      
-            </li>';
-        }
+    $lst = $_SESSION['Favourites'];
+
+    foreach ($lst as $favourite_img) {
+      echo '<tr>';
+      echo '<td><li class="item"></td>';
+      echo '<td><a class="ui small image" href="single-painting.php?id='.$favourite_img[0].'">';
+      echo '<td><img src="images/art/works/square-medium/'.$favourite_img[1].'.jpg"></a></td>';
+      echo '<td><div class="content"></td>';
+      echo '<td><br><a class="header" href="single-painting.php?id='.$favourite_img[0].'">'.$favourite_img[2].'</a></td>';
+      echo '<td><div class="extra"></td>';
+      echo '<td><br><a class="ui icon button" href="remove-favourites.php?id='.$favourite_img[0].'">';
+      echo '<td>Remove</a></td>';
+      echo '</tr>';
     }
+
   ?> 
+  <br>
+    <br>
 
   </ul>        
 </section>  
+</body>
+</html> 
