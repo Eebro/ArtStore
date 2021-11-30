@@ -2,7 +2,7 @@
     <h3 class="ui dividing header">Related Works</h3>
     <div class="ui  stackable equal width grid ">
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=473" class="ui medium image"><img src="images/art/works/square-medium/105080.jpg" alt=""></a>
           <div class="content">
@@ -14,7 +14,7 @@
         </div>
       </div>
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=467" class="ui medium image"><img src="images/art/works/square-medium/106050.jpg" alt=""></a>
           <div class="content">
@@ -26,7 +26,7 @@
         </div>
       </div>
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=425" class="ui medium image"><img src="images/art/works/square-medium/106020.jpg" alt=""></a>
           <div class="content">
@@ -38,7 +38,7 @@
         </div>
       </div>
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=437" class="ui medium image"><img src="images/art/works/square-medium/113010.jpg" alt=""></a>
           <div class="content">
@@ -50,7 +50,7 @@
         </div>
       </div>
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=460" class="ui medium image"><img src="images/art/works/square-medium/123060.jpg" alt=""></a>
           <div class="content">
@@ -62,7 +62,7 @@
         </div>
       </div>
     
-      <div class="column">
+      <div class="row">
         <div class="ui fluid card">
           <a href="single-painting.php?id=585" class="ui medium image"><img src="images/art/works/square-medium/108030.jpg" alt=""></a>
           <div class="content">

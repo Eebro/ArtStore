@@ -17,7 +17,7 @@
                     <a class="item"><i class="settings icon"></i> Account Settings</a>
                   </div>
                 </div>
-                <a class=" item" href="view-favorites.php">
+                <a class=" item" href="view-favourites.php">
                   <i class="heartbeat icon"></i> Favorites
                   <?php
                       session_start();
