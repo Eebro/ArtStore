@@ -1,13 +1,13 @@
 <?php
-include 'Artist.inc.php';
-include 'Frame.inc.php';
-include 'Gallery.inc.php';
-include 'Genre.inc.php';
-include 'Glass.inc.php';
-include 'Matt.inc.php';
-include 'Painting.inc.php';
-include 'Review.inc.php';
-include 'Shape.inc.php';
-include 'Subject.inc.php';
+include 'tables/Artist.inc.php';
+include 'tables/Frame.inc.php';
+include 'tables/Gallery.inc.php';
+include 'tables/Genre.inc.php';
+include 'tables/Glass.inc.php';
+include 'tables/Matt.inc.php';
+include 'tables/Painting.inc.php';
+include 'tables/Review.inc.php';
+include 'tables/Shape.inc.php';
+include 'tables/Subject.inc.php';
 
 ?>
