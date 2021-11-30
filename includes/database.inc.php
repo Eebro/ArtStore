@@ -53,6 +53,21 @@ function runQuery($pdo, $sql, $parameters=array())     {
     }
 }
 
+
+
+function generateRatingStars($rating) {
+  $output = "";
+  for ($i=0; $i<$rating; $i++) {
+    $output .= '<i class="orange star icon"></i>';
+  }
+  for ($i=$rating; $i<5; $i++) {
+    $output .= '<i class="empty star icon"></i>';
+  }
+  
+  return $output;
+}
+
+
 /**
  * Gets all the paintings with their artists, galleries and shapes
  * @param artist the artist of the painting
