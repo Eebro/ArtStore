@@ -1,39 +1,26 @@
 <?php
-  /**
-   * Bardia Parmoun
-   * 101143006
-   */
-  
-  require_once('includes/header.inc.php');
-  require_once('includes/art-config.inc.php');
-  require_once('includes/database.inc.php');
-  require_once('includes/classes.inc.php');
-?>
+  include 'includes/include.inc.php';
+  include 'includes/header.inc.php';
+  include 'includes/database.inc.php';
+
+  define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
+  define('DBUSER', 'testuser');
+  define('DBPASS', 'mypassword');
+  ?>
 
 <main >
     <?php 
+      $img = 521;
+      if (isset($_GET["id"])){
+        $img = $_GET["id"];
+      } 
+      $painting = getPaintingById($img);
 
-      function drawReviewStars($rating, $fullStar, $emptyStar = ""){
+
+      function rating($rate, $star){
         echo '<a class="like">';
-
-        for ($i = 0; $i < $rating; $i++){
-          echo $fullStar;
-        }
-
-        for ($i = $rating; $i < 5; $i++){
-          echo $emptyStar;
-        }
+        for ($i = 0; $i < $rate; $i++) echo $star;
         echo '</a>';
-      }
-
-      if ($_SERVER["REQUEST_METHOD"] == "GET"){
-        if (isset($_GET["id"])){
-          $id = $_GET["id"];
-        } else {
-          $id = 441;
-        }
-
-        $painting = getPaintingById($id);
       }
     ?>
     
@@ -71,7 +58,7 @@
                 </div>                  
   
 
-            </div>	<!-- END LEFT Picture Column -->             
+            </div>	           
 
 			
             <div class="seven wide column">
@@ -87,7 +74,7 @@
 					<div class="meta">
 						<p>
               <?php
-                drawReviewStars(getAvgReview($id), '<i class="orange star icon"></i>', '<i class="empty star icon"></i>');
+                rating(getAvgReview($img), '<i class="orange star icon"></i>', '<i class="empty star icon"></i>');
               ?>
 						</p>
 
@@ -95,118 +82,12 @@
 						  echo '<p>'.$painting->excerpt.'</p>';
             ?>
             </div>  
-                </div>                          
-                  
+                </div>           
+                
+              
                 <!-- Tabs For Details, Museum, Genre, Subjects -->
-                <div class="ui top attached tabular menu ">
-                    <a class="active item" data-tab="details"><i class="image icon"></i>Details</a>
-                    <a class="item" data-tab="museum"><i class="university icon"></i>Museum</a>
-                    <a class="item" data-tab="genres"><i class="theme icon"></i>Genres</a>
-                    <a class="item" data-tab="subjects"><i class="cube icon"></i>Subjects</a>    
-                </div>
-                
-                <div class="ui bottom attached active tab segment" data-tab="details">
-                    <table class="ui definition very basic collapsing celled table">
-					  <tbody>
-						  <tr>
-						 <td>
-							  Artist
-						  </td>
-						  <td>
-                <?php
-							    echo '<a href="#">'.$painting->artistName.'</a>';
-                ?>
-						  </td>                       
-						  </tr>
-						<tr>                       
-						  <td>
-							  Year
-              <?php
-							    echo '<td>'.$painting->year.'</td>';
-              ?>
-						</tr>       
-						<tr>
-						  <td>
-							  Medium
-						  </td>
-              <?php
-							    echo '<td>'.$painting->medium.'</td>';
-              ?>
-						</tr>  
-						<tr>
-						  <td>
-							  Dimensions
-						  </td>
-              <?php
-							    echo '<td>'.$painting->width.'cm x '.$painting->height.'cm </td>';
-              ?>
-						</tr>        
-					  </tbody>
-					</table>
-                </div>
-				
-                <div class="ui bottom attached tab segment" data-tab="museum">
-                    <table class="ui definition very basic collapsing celled table">
-                      <tbody>
-                        <tr>
-                          <td>
-                              Museum
-                          </td>
-                          <?php
-							              echo '<td>'.$painting->galleryName.'</td>';
-                          ?>
-                        </tr>       
-                        <tr>
-                          <td>
-                              Assession #
-                          </td>
-                          <?php
-							              echo '<td>'.$painting->accessionNumber.'</td>';
-                          ?>
-                        </tr>  
-                        <tr>
-                          <td>
-                              Copyright
-                          </td>
-                          <?php
-							              echo '<td>'.$painting->copyright.'</td>';
-                          ?>
-                        </tr>       
-                        <tr>
-                          <td>
-                              URL
-                          </td>
-                          <?php
-							              echo '<td><a href="'.$painting->galleryLink.'">View painting at museum site</a></td>';
-                          ?>
-                        </tr>        
-                      </tbody>
-                    </table>    
-                </div> 
+                <?php include 'includes/single-tabs.inc.php'; ?>
 
-                <div class="ui bottom attached tab segment" data-tab="genres">
-                  <ul class="ui list">
-                    <?php 
-                      $genres = findPaintingGenres($id);
-
-                      foreach($genres as $genre){
-                        echo '<li class="item"><a href="'.$genre->link.'">'.$genre->genreName.'</a></li>';
-                      }
-                    ?>
-                  </ul>
-                </div>  
-                
-                <div class="ui bottom attached tab segment" data-tab="subjects">
-                  <ul class="ui list">
-                    <?php 
-                      $subjects = findPaintingSubjects($id);
-
-                      foreach($subjects as $subject){
-                        echo '<li class="item"><a href="#">'.$subject->subjectName.'</a></li>';
-                      }
-                    ?>
-                  </ul>
-                </div>  
                 
                 <!-- Cart-->
                 <?php include 'includes/cart.inc.php'; ?>
@@ -275,7 +156,7 @@
 				<div class="ui feed">
 					
           <?php 
-            $reviews = getReviews($id);
+            $reviews = getReviews($img);
 
             foreach($reviews as $review){
               echo '
@@ -284,7 +165,7 @@
                 <div class="date">'.$review->date.'</div>
                 <div class="meta">';
 
-                drawReviewStars($review->rating, '<i class="star icon"></i>');
+                rating($review->rating, '<i class="star icon"></i>');
 
                 echo '
                 </div>                    
@@ -307,9 +188,6 @@
     <?php include 'includes/image-list.inc.php'; ?>    
 	
 </main>    
-    
-
-    
   <footer class="ui black inverted segment">
       <div class="ui container">footer</div>
   </footer>
