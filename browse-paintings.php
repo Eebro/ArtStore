@@ -1,9 +1,7 @@
 <?php
-  /**
-   * Bardia Parmoun
-   * 101143006
-   */
-
+  //Ibrahim Almalki - 101142978
+  //SYSC 4504 Assignment 3
+  // December 1, 2021
 
   include 'includes/include.inc.php';
   include 'includes/header.inc.php';
@@ -14,39 +12,51 @@
   define('DBUSER', 'testuser');
   define('DBPASS', 'mypassword');
 
-  
 
+try{
   // Connecting to memcached.
   $memcache = new Memcache;
   $memcache->connect('localhost', 11211) or die ("Could not connect to the memcache server");
 
+
+  // get data from memchace data, if it does not exist, store it. 
+  //artists
   $artistsKey = "artists";
-  $galleriesKey = "gallery";
-  $shapesKey = "shape";
-
-  $cacheTime = 5 * 60; // Keeps the data for 5 minutes.
-
-  // Retrives the cached data if it already exists.
   $artistsCache = $memcache->get($artistsKey);
-  $galleriesCache = $memcache->get($galleriesKey);
-  $shapesCache = $memcache->get($shapesKey);
-
-  // If the data is not in memcache retrieve it from the database again.
   if (!$artistsCache){
     $artistsCache = fetchArtists() or die("Failed to connect to the database");
-    $memcache->set($artistsKey, $artistsCache, false, $cacheTime);
+    $memcache->set($artistsKey, $artistsCache, false, 300);
   }
 
+
+  // get data from memchace data, if it does not exist, store it. 
+  //shapes
+  $shapesKey = "shape";
+  $shapesCache = $memcache->get($shapesKey);
+  if (!$shapesCache){
+    $shapesCache = fetchShapes() or die("Failed to connect to the database");
+    $memcache->set($shapesKey, $shapesCache, false, 300);
+  }
+
+
+  // get data from memchace data, if it does not exist, store it. 
+  //galleries
+  $galleriesKey = "gallery";
+  $galleriesCache = $memcache->get($galleriesKey);
   if (!$galleriesCache){
     $galleriesCache = fetchMuseums() or die("Failed to connect to the database");
-    $memcache->set($galleriesKey, $galleriesCache, false, $cacheTime);
+    $memcache->set($galleriesKey, $galleriesCache, false, 300);
     $galleriesCache = $memcache->get($galleriesKey);
   }
 
-  if (!$shapesCache){
-    $shapesCache = fetchShapes() or die("Failed to connect to the database");
-    $memcache->set($shapesKey, $shapesCache, false, $cacheTime);
-  }
+
+
+}
+
+catch (PDOException $e) {
+  die( $e->getMessage() );
+}
+
 ?>
     
 <main class="ui segment doubling stackable grid container">
@@ -125,7 +135,7 @@
           // If the data is not in memcache retrieve it from the database again.
           if (!$paintingsCache){
             $paintingsCache = fetchPaintings($artist, $museum, $shape) or die("Failed to connect to the database");
-            $memcache->set($paintingsKey, $paintingsCache, false, $cacheTime);
+            $memcache->set($paintingsKey, $paintingsCache, false, 300);
           }
           
           foreach($paintingsCache as $painting){
