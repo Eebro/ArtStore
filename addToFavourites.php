@@ -1,5 +1,5 @@
 <?php
-  include 'includes/database.inc.php';
+  include 'includes/ConnSetup.inc.php';
   include 'includes/include.inc.php';
   include 'includes/header.inc.php';
 

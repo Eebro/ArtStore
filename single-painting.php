@@ -1,7 +1,7 @@
 <?php
   include 'includes/include.inc.php';
   include 'includes/header.inc.php';
-  include 'includes/database.inc.php';
+  include 'includes/ConnSetup.inc.php';
 
   define('DBCONNECTION', 'mysql:host=localhost;dbname=art');
   define('DBUSER', 'testuser');
