@@ -1,15 +1,5 @@
 <?php
-/**
- * Bardia Parmoun
- * 101143006
- */
 
-// Collection of functions to deal with SQL database
-/**
- * Sets a connection with the database.
- * @param values: the connection parameters.
- * @return pdo object.
- */
 function setConnectionInfo($values=array()) {
       // your code goes here
       try {
@@ -26,13 +16,6 @@ function setConnectionInfo($values=array()) {
       }
 }
 
-/**
- * Runs a query with optional parameters.
- * @param pdo the pdo object of the database.
- * @param sql the sql query to run.
- * @param parameters: the optional parameters for the param.
- * @return result the result of the query.
- */
 function runQuery($pdo, $sql, $parameters=array())     {
     // your code goes here
     try {
@@ -56,13 +39,6 @@ function runQuery($pdo, $sql, $parameters=array())     {
 
 
 
-/**
- * Gets all the paintings with their artists, galleries and shapes
- * @param artist the artist of the painting
- * @param museum where the painting is located
- * @param shape the shape of the painting
- * @return paintings all the paintings that match this criteria.
- */
 function fetchPaintings($artist = "", $museum = "", $shape = ""){
     $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE";
 
@@ -113,10 +89,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $paintings;
   }
 
-  /**
-   * Grabs all the artist lastnames.
-   * @return artists the lastnames of all the artists.
-   */
+
   function fetchArtists(){
     $sql = "SELECT LastName FROM artists ORDER BY LastName";
     $pdo = setConnectionInfo();
@@ -132,10 +105,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $artists;
   }
 
- /**
-   * Grabs all the gallery names.
-   * @return galleries the name of all the galleries.
-   */
+
   function fetchMuseums(){
     $sql = "SELECT GalleryName FROM galleries ORDER BY GalleryName";
     $pdo = setConnectionInfo();
@@ -151,10 +121,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $galleries;
   }
 
-  /**
-   * Grabs all the shape names.
-   * @return shapes the name of all the shapes.
-   */
+  
   function fetchShapes(){
     $sql = "SELECT ShapeName FROM shapes ORDER BY ShapeName";
     $pdo = setConnectionInfo();
@@ -171,11 +138,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
   }
 
 
-  /**
-   * Gets the information about the painting using its id.
-   * @param id the id of the painting
-   * @return Painting the painting object.
-   */
+
   function getPaintingById($id){
     $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE paintingID = ?";
 
@@ -186,11 +149,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return new Painting($result->fetch());
   }
 
-  /**
-   * Gets all the genres for the painting id.
-   * @param id the painting id.
-   * @return genres list of the painting genres.
-   */
+
   function findPaintingGenres($id){
     $sql = "SELECT * FROM paintings NATURAL JOIN paintinggenres INNER JOIN genres on paintinggenres.GenreID = genres.GenreID WHERE paintings.PaintingID = ?";
       
@@ -207,11 +166,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $genres;  
   }
 
-  /**
-   * Gets all the subjects for the painting id.
-   * @param id the painting id.
-   * @return subjects list of the painting subjects.
-   */
+
   function findPaintingSubjects($id){
     $sql = "SELECT * FROM paintings NATURAL JOIN paintingsubjects INNER JOIN subjects on paintingsubjects.SubjectID = subjects.SubjectID WHERE paintings.PaintingID = ?";
     
@@ -228,10 +183,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $subjects;
   }
 
-  /**
-   * Gets all the frame types.
-   * @return frames different frame types.
-   */
+ 
   function getFrameTypes(){
     $sql = "SELECT Title, Price FROM typesframes ORDER BY FrameID";
     
@@ -248,10 +200,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $frames;
   }
 
-  /**
-   * Gets all the glass types.
-   * @return glasses different glass types.
-   */
+
   function getGlassTypes(){
     $sql = "SELECT Title, Price FROM typesglass ORDER BY GlassID";
     
@@ -268,10 +217,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $glasses;
   }
 
-  /**
-   * Gets all the matt types.
-   * @return matts different matt types.
-   */
+
   function getMattTypes(){
     $sql = "SELECT Title, ColorCode FROM typesmatt ORDER BY MattID";
     
@@ -288,11 +234,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $matts;
   }
 
-  /**
-   * Gets all the reivews for the painting.
-   * @param id the painting id.
-   * @return reviews list of the painting reviews.
-   */
+
   function getReviews($id){
     $sql = "SELECT * FROM reviews WHERE PaintingID = ?";
       
@@ -309,11 +251,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $reviews;
   }
 
-  /**
-   * Gets all the reivews for the painting.
-   * @param id the painting id.
-   * @return rating the avg rating of the painting.
-   */
+ 
   function getAvgReview($id){
     $sql = "SELECT AVG(Rating) FROM reviews GROUP BY PaintingID HAVING PaintingID = ?";
       
