@@ -8,7 +8,7 @@ class Glass{
             $this->price = number_format($record['Price'], 0, '.', ',');
         }
 
-        public static function getGlassTypes(){
+        public static function Glasses(){
             $sql = "SELECT Title, Price FROM typesglass ORDER BY GlassID";
             $arr = array();
             $pdo = setConnectionInfo();

@@ -14,7 +14,7 @@
       if (isset($_GET["id"])){
         $img = $_GET["id"];
       } 
-      $painting = Painting::getPaintingById($img);
+      $painting = Painting::getNewPaint($img);
 
 
       function rating($rate){
@@ -70,7 +70,7 @@
 					<div class="meta">
 						<p>
               <?php
-                rating(Review::getAvgReview($img));
+                rating(Review::PaintReview($img));
               ?>
 						</p>
 
@@ -152,7 +152,7 @@
 				<div class="ui feed">
 					
           <?php 
-            $reviews = Review::getReviews($img);
+            $reviews = Review::Reviews($img);
 
             foreach($reviews as $review){
               echo '

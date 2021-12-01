@@ -6,7 +6,7 @@ class Gallery {
             $this->galleryName = $record['GalleryName'];
         }
 
-        public static function fetchMuseums(){
+        public static function getGalleries(){
             $sql = "SELECT GalleryName FROM galleries ORDER BY GalleryName";
             $result = array();
             $pdo = setConnectionInfo();

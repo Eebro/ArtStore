@@ -63,7 +63,7 @@
 <div class="ui bottom attached tab segment" data-tab="genres">
 <ul class="ui list">
   <?php 
-    $genres = Genre::findPaintingGenres($img);
+    $genres = Genre::getGenre($img);
 
     foreach($genres as $genre){
       echo '<li class="item"><a href="'.$genre->link.'">'.$genre->genreName.'</a></li>';
@@ -75,7 +75,7 @@
 <div class="ui bottom attached tab segment" data-tab="subjects">
 <ul class="ui list">
   <?php 
-    $subjects = Subject::findPaintingSubjects($img);
+    $subjects = Subject::getSubject($img);
 
     foreach($subjects as $subject){
       echo '<li class="item"><a href="#">'.$subject->subjectName.'</a></li>';

@@ -8,7 +8,7 @@ class Frame{
             $this->price = number_format($record['Price'], 0, '.', ',');
         }
 
-        public static function getFrameTypes(){
+        public static function Frames(){
             $sql = "SELECT Title, Price FROM typesframes ORDER BY FrameID";
             $result = array();
             $pdo = setConnectionInfo();

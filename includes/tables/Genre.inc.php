@@ -8,15 +8,15 @@ class Genre{
             $this->link = $record['Link'];
         }
 
-        public static function findPaintingGenres($id){
+        public static function getGenre($id){
             $sql = "SELECT * FROM paintings NATURAL JOIN paintinggenres INNER JOIN genres on paintinggenres.GenreID = genres.GenreID WHERE paintings.PaintingID = ?";
-            $result = array();
+            $arr = array();
             $pdo = setConnectionInfo();
             $query = runQuery($pdo, $sql, Array($id));
             foreach(($query->fetchAll()) as $row){
-                $result[] = new Genre($row);
+                $arr[] = new Genre($row);
             }
-            return $result;  
+            return $arr;  
           }
     }
 

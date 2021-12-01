@@ -10,7 +10,7 @@ class Review{
             $this->comment = $record['Comment'];
         }
 
-        public static function getReviews($img){
+        public static function Reviews($img){
             $sql = "SELECT * FROM reviews WHERE PaintingID = ?";
             $arr = array();
             $pdo = setConnectionInfo();
@@ -22,7 +22,7 @@ class Review{
           }
         
          
-          public static function getAvgReview($img){
+          public static function PaintReview($img){
             $sql = "SELECT AVG(Rating) FROM reviews GROUP BY PaintingID HAVING PaintingID = ?";
             $pdo = setConnectionInfo();
             $query = runQuery($pdo, $sql,array($img));

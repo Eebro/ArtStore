@@ -8,7 +8,7 @@ class Matt{
             $this->color = $record['ColorCode'];
         }
 
-        public static function getMattTypes(){
+        public static function Mattes(){
             $sql = "SELECT Title, ColorCode FROM typesmatt ORDER BY MattID";
             $arr = array();
             $pdo = setConnectionInfo();

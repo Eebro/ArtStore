@@ -6,7 +6,7 @@
             $this->shapeName = $record['ShapeName'];
         }
 
-        public static function fetchShapes(){
+        public static function getShape(){
             $sql = "SELECT ShapeName FROM shapes ORDER BY ShapeName";
             $arr = array();
             $pdo = setConnectionInfo();

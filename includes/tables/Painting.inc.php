@@ -42,7 +42,20 @@ class Painting {
             $this->googleDescription = $record['GoogleDescription'];
         }
 
-        public static function fetchPaintings($artist = "", $museum = "", $shape = ""){
+        public static function getNewPaint($img){
+            $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE paintingID = ?";
+            $final = null;
+            $pdo = setConnectionInfo();
+            $result = runQuery($pdo, $sql, Array($img));
+            $pdo = null;
+        
+            $final = $result->fetch();
+            $paintingNew = new Painting($final);
+            return $paintingNew;
+            }
+
+
+        public static function getPaintings($artist = "", $museum = "", $shape = ""){
             $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE";
         
             $filters = "";
@@ -93,15 +106,5 @@ class Painting {
           }
 
 
-          public static function getPaintingById($id){
-            $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE paintingID = ?";
-            $final = null;
-            $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql, Array($id));
-            $pdo = null;
-        
-            $final = $result->fetch();
-            return new Painting($final);
-          }
     }
 ?>

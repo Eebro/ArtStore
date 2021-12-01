@@ -6,7 +6,7 @@ class Artist {
             $this->artistName = $record['LastName'];
         }
 
-        public static function fetchArtists(){
+        public static function getArtists(){
             $sql = "SELECT LastName FROM artists ORDER BY LastName";
             $painter = array();
             $pdo = setConnectionInfo();
