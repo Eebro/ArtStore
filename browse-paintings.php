@@ -21,34 +21,38 @@ try{
 
   // get data from memchace data, if it does not exist, store it. 
   //artists
-  $artistsKey = "artists";
-  $artistsCache = $memcache->get($artistsKey);
+  $memArtistsKey = "artists";
+  $artistsCache = $memcache->get($memArtistsKey);
   if (!$artistsCache){
     $artistsCache = Artist::getArtists() or die("Failed to connect to the database");
-    $memcache->set($artistsKey, $artistsCache, false, 300);
+    $memcache->set($memArtistsKey, $artistsCache, false, 300) or die ("Failed to save artist data at server");
   }
+
 
 
   // get data from memchace data, if it does not exist, store it. 
   //shapes
-  $shapesKey = "shape";
-  $shapesCache = $memcache->get($shapesKey);
-  if (!$shapesCache){
-    $shapesCache = Shape::getShape() or die("Failed to connect to the database");
-    $memcache->set($shapesKey, $shapesCache, false, 300);
+  $memShapesKey = "shape";
+  $memcacheShapes = $memcache->get($memShapesKey);
+  if (!$memcacheShapes){
+    $memcacheShapes = Shape::getShape() or die("Failed to connect to the database");
+    $memcache->set($memShapesKey, $memcacheShapes, false, 300) or die ("Failed to save shapes data at server");
   }
 
 
-  // get data from memchace data, if it does not exist, store it. 
+
+
+    // get data from memchace data, if it does not exist, store it. 
   //galleries
   $galleriesKey = "gallery";
   $galleriesCache = $memcache->get($galleriesKey);
   if (!$galleriesCache){
     $galleriesCache = Gallery::getGalleries() or die("Failed to connect to the database");
-    $memcache->set($galleriesKey, $galleriesCache, false, 300);
-    $galleriesCache = $memcache->get($galleriesKey);
+    $memcache->set($galleriesKey, $galleriesCache, false, 300) or die ("Failed to save gallery data at server");
+    $galleriesCache = $memcache->get($galleriesKey) ;
   }
 }
+
 
 catch (PDOException $e) {
   die( $e->getMessage() );
@@ -106,7 +110,7 @@ catch (PDOException $e) {
             <select name="shape" class="ui fluid dropdown">
               <option>Select Shape</option>  
               <?php 
-                foreach($shapesCache as $shape){
+                foreach($memcacheShapes as $shape){
                   echo '<option>'.$shape->shapeName.'</option>';
                 }
               ?>

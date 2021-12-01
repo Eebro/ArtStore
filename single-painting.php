@@ -182,7 +182,7 @@
     
     <!-- Related Images -->    
     <section class="ui container">
-    <h3 class="ui dividing header">Related Works</h3>
+    <h1 class="ui dividing header">Related Works</h1>
     <div class="ui  stackable equal width grid ">
     
       <div class="row">
