@@ -6,24 +6,17 @@ class Matt{
         function __construct($record){
             $this->title = $record['Title'];
             $this->color = $record['ColorCode'];
-
         }
 
         public static function getMattTypes(){
             $sql = "SELECT Title, ColorCode FROM typesmatt ORDER BY MattID";
-            
+            $arr = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-                
-            $rows = $result->fetchAll();
-            $matts = Array();
-            foreach($rows as $row){
-                $matts[] = new Matt($row);
+            $query = runQuery($pdo, $sql);
+            foreach(($query->fetchAll()) as $painting){
+                $arr[] = new Matt($painting);
             }
-          
-            return $matts;
+            return $arr;
           }
-        
     }
     ?>

@@ -8,17 +8,13 @@
 
         public static function fetchShapes(){
             $sql = "SELECT ShapeName FROM shapes ORDER BY ShapeName";
+            $arr = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-              
-            $rows = $result->fetchAll();
-            $shapes = Array();
-            foreach($rows as $row){
-                $shapes[] = new Shape($row);
+            $query = runQuery($pdo,$sql);
+            foreach(($query->fetchAll()) as $painting){
+                $arr[] = new Shape($painting);
             }
-              
-            return $shapes;
+            return $arr;
           }
     }
 ?>

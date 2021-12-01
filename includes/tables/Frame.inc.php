@@ -10,18 +10,13 @@ class Frame{
 
         public static function getFrameTypes(){
             $sql = "SELECT Title, Price FROM typesframes ORDER BY FrameID";
-            
+            $result = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-                
-            $rows = $result->fetchAll();
-            $frames = Array();
-            foreach($rows as $row){
-                $frames[] = new Frame($row);
+            $query = runQuery($pdo, $sql);
+            foreach(($query->fetchAll()) as $painting){
+                $result[] = new Frame($painting);
             }
-          
-            return $frames;
+            return $result;
           }
     }
 

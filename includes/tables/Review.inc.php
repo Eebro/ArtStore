@@ -10,32 +10,24 @@ class Review{
             $this->comment = $record['Comment'];
         }
 
-        public static function getReviews($id){
+        public static function getReviews($img){
             $sql = "SELECT * FROM reviews WHERE PaintingID = ?";
-              
+            $arr = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql, Array($id));
-            $pdo = null;
-        
-            $rows = $result->fetchAll();
-            $reviews = Array();
-            foreach($rows as $row){
-                $reviews[] = new Review($row);
+            $query = runQuery($pdo,$sql,array($img));
+            foreach(($query->fetchAll()) as $painting){
+                $arr[] = new Review($painting);
             }  
-        
-            return $reviews;
+            return $arr;
           }
         
          
-          public static function getAvgReview($id){
+          public static function getAvgReview($img){
             $sql = "SELECT AVG(Rating) FROM reviews GROUP BY PaintingID HAVING PaintingID = ?";
-              
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql, Array($id));
+            $query = runQuery($pdo, $sql,array($img));
             $pdo = null;
-        
-            $rating = $result->fetch();
-            $final = round($rating[0]);
+            $final = round(($query->fetch())[0]);
             return $final;
           }   
     }

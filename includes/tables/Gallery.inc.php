@@ -8,17 +8,13 @@ class Gallery {
 
         public static function fetchMuseums(){
             $sql = "SELECT GalleryName FROM galleries ORDER BY GalleryName";
+            $result = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-            
-            $rows = $result->fetchAll();
-            $galleries = Array();
-            foreach($rows as $row){
-                $galleries[] = new Gallery($row);
+            $query = runQuery($pdo, $sql);
+            foreach(($query->fetchAll()) as $painting){
+                $result[] = new Gallery($painting);
             }
-            
-            return $galleries;
+            return $result;
           }
     }
 ?>

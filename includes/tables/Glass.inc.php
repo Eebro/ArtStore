@@ -10,18 +10,13 @@ class Glass{
 
         public static function getGlassTypes(){
             $sql = "SELECT Title, Price FROM typesglass ORDER BY GlassID";
-            
+            $arr = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-                
-            $rows = $result->fetchAll();
-            $glasses = Array();
-            foreach($rows as $row){
-                $glasses[] = new Glass($row);
+            $query = runQuery($pdo, $sql);
+            foreach(($query->fetchAll()) as $painting){
+                $arr[] = new Glass($painting);
             }
-          
-            return $glasses;
+            return $arr;
           }
     }
 

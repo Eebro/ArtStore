@@ -9,5 +9,4 @@ include 'tables/Painting.inc.php';
 include 'tables/Review.inc.php';
 include 'tables/Shape.inc.php';
 include 'tables/Subject.inc.php';
-
 ?>

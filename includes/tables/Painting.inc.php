@@ -95,12 +95,13 @@ class Painting {
 
           public static function getPaintingById($id){
             $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE paintingID = ?";
-        
+            $final = null;
             $pdo = setConnectionInfo();
             $result = runQuery($pdo, $sql, Array($id));
             $pdo = null;
-            
-            return new Painting($result->fetch());
+        
+            $final = $result->fetch();
+            return new Painting($final);
           }
     }
 ?>

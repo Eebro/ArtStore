@@ -56,11 +56,7 @@
                     </div>
                   </div>
                 </div>                  
-  
-
             </div>	           
-
-			
             <div class="seven wide column">
                 
                 <!-- Main Info -->

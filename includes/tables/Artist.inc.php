@@ -8,17 +8,14 @@ class Artist {
 
         public static function fetchArtists(){
             $sql = "SELECT LastName FROM artists ORDER BY LastName";
+            $painter = array();
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql);
-            $pdo = null;
-          
-            $rows = $result->fetchAll();
-            $artists = Array();
-            foreach($rows as $row){
-                $artists[] = new Artist($row);
+            $query = runQuery($pdo, $sql);
+            foreach(($query->fetchAll()) as $painting){
+                $painter[] = new Artist($painting);
             }
           
-            return $artists;
+            return $painter;
           }
     }
 ?>

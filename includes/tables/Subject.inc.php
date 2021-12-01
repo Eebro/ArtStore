@@ -7,19 +7,16 @@ class Subject{
         }
 
         public static function findPaintingSubjects($id){
-            $sql = "SELECT * FROM paintings NATURAL JOIN paintingsubjects INNER JOIN subjects on paintingsubjects.SubjectID = subjects.SubjectID WHERE paintings.PaintingID = ?";
-            
+            $sql = "SELECT * FROM paintings NATURAL JOIN paintingsubjects 
+            INNER JOIN subjects on paintingsubjects.SubjectID = subjects.SubjectID 
+            WHERE paintings.PaintingID = ?";
+            $arr = array();    
             $pdo = setConnectionInfo();
-            $result = runQuery($pdo, $sql, Array($id));
-            $pdo = null;
-              
-            $rows = $result->fetchAll();
-            $subjects = Array();
-            foreach($rows as $row){
-                $subjects[] = new Subject($row);
+            $result = runQuery($pdo,$sql,array($id));
+            foreach(($result->fetchAll()) as $painting){
+                $arr[] = new Subject($painting);
             }
-        
-            return $subjects;
+            return $arr;
           }
     }
 
