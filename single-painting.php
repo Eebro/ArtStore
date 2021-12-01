@@ -10,16 +10,16 @@
 
 <main >
     <?php 
-      $img = 521;
+      $img = 412;
       if (isset($_GET["id"])){
         $img = $_GET["id"];
       } 
       $painting = getPaintingById($img);
 
 
-      function rating($rate, $star){
+      function rating($rate){
         echo '<a class="like">';
-        for ($i = 0; $i < $rate; $i++) echo $star;
+        for ($i = 0; $i < $rate; $i++) echo '<i class="orange star icon"></i>';
         echo '</a>';
       }
     ?>
@@ -74,7 +74,7 @@
 					<div class="meta">
 						<p>
               <?php
-                rating(getAvgReview($img), '<i class="orange star icon"></i>', '<i class="empty star icon"></i>');
+                rating(getAvgReview($img));
               ?>
 						</p>
 
@@ -111,7 +111,7 @@
               <?php
                 echo $painting->description;
               ?>
-            </div>	<!-- END DescriptionTab --> 
+            </div>
 			
             <div class="ui bottom attached tab segment" data-tab="second">
 				<table class="ui definition very basic collapsing celled table">
@@ -150,7 +150,7 @@
                     </tr>                      
                   </tbody>
                 </table>
-            </div>   <!-- END On the Web Tab --> 
+            </div>  
 			
             <div class="ui bottom attached tab segment" data-tab="third">                
 				<div class="ui feed">
@@ -165,7 +165,7 @@
                 <div class="date">'.$review->date.'</div>
                 <div class="meta">';
 
-                rating($review->rating, '<i class="star icon"></i>');
+                rating($review->rating);
 
                 echo '
                 </div>                    
@@ -185,7 +185,51 @@
     </section> 
     
     <!-- Related Images -->    
-    <?php include 'includes/image-list.inc.php'; ?>    
+    <section class="ui container">
+    <h3 class="ui dividing header">Related Works</h3>
+    <div class="ui  stackable equal width grid ">
+    
+      <div class="row">
+        <div class="ui fluid card">
+          <a href="single-painting.php?id=389" class="ui medium image"><img src="images/art/works/square-medium/097050.jpg" alt=""></a>
+          <div class="content">
+            <h4>
+              <span>Painting Title: Mona Lisa</span><br>
+              <span>Artist Name: </span>
+              <a href="#">Leonardo da Vinci</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="ui fluid card">
+          <a href="single-painting.php?id=598" class="ui medium image"><img src="images/art/works/square-medium/141010.jpg" alt=""></a>
+          <div class="content">
+            <h4>
+              <span>Painting Title: Saint Margaret and the Dragon</span><br>
+              <span>Artist Name: </span>
+              <a href="#">Agnolo Gaddi</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    
+      <div class="row">
+        <div class="ui fluid card">
+          <a href="single-painting.php?id=64" class="ui medium image"><img src="images/art/works/square-medium/019060.jpg" alt=""></a>
+          <div class="content">
+            <h4>    
+              <span>Painting Title: Self Portrait With Bandaged Ear</span><br>
+              <span>Artist Name: </span>
+              <a href="#">Vincent Van Gogh</a>
+            </h4>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+</section>   
 	
 </main>    
   <footer class="ui black inverted segment">

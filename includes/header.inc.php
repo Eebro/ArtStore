@@ -21,7 +21,6 @@
                   <i class="heartbeat icon"></i> Favorites
                   <?php
                       session_start();
-
                       if (isset($_SESSION['Favourites'])){
                         $favourte_list = $_SESSION['Favourites'];
                         $favCount = count($favourte_list);

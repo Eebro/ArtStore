@@ -322,6 +322,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     $pdo = null;
 
     $rating = $result->fetch();
-    return round($rating[0], 0);
+    $final = round($rating[0]);
+    return $final;
   }      
 ?>

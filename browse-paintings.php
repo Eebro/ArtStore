@@ -14,7 +14,7 @@
 
 
 try{
-  // Connecting to memcached.
+  // Connecting to Memcache.
   $memcache = new Memcache;
   $memcache->connect('localhost', 11211) or die ("Could not connect to the memcache server");
 
@@ -48,9 +48,6 @@ try{
     $memcache->set($galleriesKey, $galleriesCache, false, 300);
     $galleriesCache = $memcache->get($galleriesKey);
   }
-
-
-
 }
 
 catch (PDOException $e) {
@@ -134,6 +131,7 @@ catch (PDOException $e) {
           $museum = ""; 
           $shape = "";
 
+
           if ($_SERVER["REQUEST_METHOD"] == "GET"){
             if (isset($_GET["artist"]) && isset($_GET["museum"]) && isset($_GET["shape"])){
               $artist = $_GET["artist"];
@@ -143,10 +141,8 @@ catch (PDOException $e) {
             } 
           }
 
-          // Retrives the cached data if it already exists.
           $paintingsCache = $memcache->get($paintingsKey);
             
-          // If the data is not in memcache retrieve it from the database again.
           if (!$paintingsCache){
             $paintingsCache = fetchPaintings($artist, $museum, $shape) or die("Failed to connect to the database");
             $memcache->set($paintingsKey, $paintingsCache, false, 300);
