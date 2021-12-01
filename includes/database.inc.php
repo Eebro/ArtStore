@@ -38,7 +38,7 @@ function runQuery($pdo, $sql, $parameters=array())     {
 
 
 
-
+/*
 function fetchPaintings($artist = "", $museum = "", $shape = ""){
     $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE";
 
@@ -88,8 +88,9 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
 
     return $paintings;
   }
+ */
 
-
+/*
   function fetchArtists(){
     $sql = "SELECT LastName FROM artists ORDER BY LastName";
     $pdo = setConnectionInfo();
@@ -104,8 +105,9 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
   
     return $artists;
   }
+  */
 
-
+/*
   function fetchMuseums(){
     $sql = "SELECT GalleryName FROM galleries ORDER BY GalleryName";
     $pdo = setConnectionInfo();
@@ -136,9 +138,9 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
       
     return $shapes;
   }
+*/
 
-
-
+/*
   function getPaintingById($id){
     $sql = "SELECT * FROM paintings NATURAL JOIN artists NATURAL JOIN shapes NATURAL JOIN galleries WHERE paintingID = ?";
 
@@ -166,7 +168,6 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $genres;  
   }
 
-
   function findPaintingSubjects($id){
     $sql = "SELECT * FROM paintings NATURAL JOIN paintingsubjects INNER JOIN subjects on paintingsubjects.SubjectID = subjects.SubjectID WHERE paintings.PaintingID = ?";
     
@@ -182,8 +183,9 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
 
     return $subjects;
   }
+*/
 
- 
+ /*
   function getFrameTypes(){
     $sql = "SELECT Title, Price FROM typesframes ORDER BY FrameID";
     
@@ -199,8 +201,8 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
   
     return $frames;
   }
-
-
+*/
+/*
   function getGlassTypes(){
     $sql = "SELECT Title, Price FROM typesglass ORDER BY GlassID";
     
@@ -251,7 +253,7 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     return $reviews;
   }
 
- 
+
   function getAvgReview($id){
     $sql = "SELECT AVG(Rating) FROM reviews GROUP BY PaintingID HAVING PaintingID = ?";
       
@@ -262,5 +264,5 @@ function fetchPaintings($artist = "", $museum = "", $shape = ""){
     $rating = $result->fetch();
     $final = round($rating[0]);
     return $final;
-  }      
+  }    */   
 ?>

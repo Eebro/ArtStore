@@ -15,7 +15,7 @@ if ( ! empty($_GET['id']) && isset($_GET['id'])) {
   }
  
   $lstFav = $_SESSION['Favourites'];
-  $img = getPaintingById($_GET["id"]);
+  $img = Painting::getPaintingById($_GET["id"]);
   $lstFav[$_GET["id"]] = array($_GET["id"], $img->imageFileName, $img->title);
   $_SESSION['Favourites'] = $lstFav;
 

@@ -14,7 +14,7 @@
                 <label>Frame</label>
                 <select id="frame" class="ui search dropdown">
                 <?php 
-                    $frames = getFrameTypes();
+                    $frames = Frame::getFrameTypes();
                     foreach($frames as $frame){
                     echo '<option>'.$frame->title.' [ $'.$frame->price.' ]</option>';
                     }
@@ -25,7 +25,7 @@
                 <label>Glass</label>
                 <select id="glass" class="ui search dropdown">
                 <?php 
-                    $glasses = getGlassTypes();
+                    $glasses = Glass::getGlassTypes();
                     foreach($glasses as $glass){
                         echo '<option>'.$glass->title.' [ $'.$glass->price.' ]</option>';
                     }
@@ -36,7 +36,7 @@
                 <label>Matt</label>
                 <select id="matt" class="ui search dropdown">
                 <?php 
-                    $matts = getMattTypes();
+                    $matts = Matt::getMattTypes();
                     foreach($matts as $matt){
                         echo '<option>'.$matt->title.'</option>';
                     }

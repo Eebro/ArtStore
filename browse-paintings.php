@@ -24,7 +24,7 @@ try{
   $artistsKey = "artists";
   $artistsCache = $memcache->get($artistsKey);
   if (!$artistsCache){
-    $artistsCache = fetchArtists() or die("Failed to connect to the database");
+    $artistsCache = Artist::fetchArtists() or die("Failed to connect to the database");
     $memcache->set($artistsKey, $artistsCache, false, 300);
   }
 
@@ -34,7 +34,7 @@ try{
   $shapesKey = "shape";
   $shapesCache = $memcache->get($shapesKey);
   if (!$shapesCache){
-    $shapesCache = fetchShapes() or die("Failed to connect to the database");
+    $shapesCache = Shape::fetchShapes() or die("Failed to connect to the database");
     $memcache->set($shapesKey, $shapesCache, false, 300);
   }
 
@@ -44,7 +44,7 @@ try{
   $galleriesKey = "gallery";
   $galleriesCache = $memcache->get($galleriesKey);
   if (!$galleriesCache){
-    $galleriesCache = fetchMuseums() or die("Failed to connect to the database");
+    $galleriesCache = Gallery::fetchMuseums() or die("Failed to connect to the database");
     $memcache->set($galleriesKey, $galleriesCache, false, 300);
     $galleriesCache = $memcache->get($galleriesKey);
   }
@@ -144,7 +144,7 @@ catch (PDOException $e) {
           $paintingsCache = $memcache->get($paintingsKey);
             
           if (!$paintingsCache){
-            $paintingsCache = fetchPaintings($artist, $museum, $shape) or die("Failed to connect to the database");
+            $paintingsCache = Painting::fetchPaintings($artist, $museum, $shape) or die("Failed to connect to the database");
             $memcache->set($paintingsKey, $paintingsCache, false, 300);
           }
           
